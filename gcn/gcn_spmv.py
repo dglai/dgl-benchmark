@@ -13,6 +13,7 @@ import torch.nn.functional as F
 import dgl.function as fn
 from dgl import DGLGraph
 from dgl.data import register_data_args, load_data
+from utils import load_synthetic
 
 class GCNLayer(nn.Module):
     def __init__(self,
@@ -88,7 +89,11 @@ class GCN(nn.Module):
 
 def main(args):
     # load and preprocess dataset
-    data = load_data(args)
+    if args.dataset == "synthetic":
+        # generate a synthetic power-law graph
+        data = load_synthetic(args)
+    else:
+        data = load_data(args)
     features = torch.FloatTensor(data.features)
     labels = torch.LongTensor(data.labels)
     train_mask = torch.ByteTensor(data.train_mask)
@@ -161,11 +166,9 @@ def main(args):
 
         loss.backward()
         optimizer.step()
-
-        print("Epoch {:05d} | Accuracy {}".format(epoch, loss.item()))
+        loss = loss.item()
     end = time.time()
-    print(end - start)
-
+    print("{:.4f}".format(end-start))
 
 
 if __name__ == '__main__':
@@ -185,6 +188,10 @@ if __name__ == '__main__':
             help="number of hidden gcn layers")
     parser.add_argument("--weight-decay", type=float, default=5e-4,
             help="Weight for L2 loss")
+    parser.add_argument("--n-nodes", type=int, default=10000,
+            help="Number of nodes for synthetic power law graph")
+    parser.add_argument("--degree", type=int, default=10,
+            help="Out degree for synthetic power law graph")
     args = parser.parse_args()
     print(args)
 
