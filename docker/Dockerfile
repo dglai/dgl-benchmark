@@ -18,6 +18,12 @@ RUN cd /root/dgl/python && python3 setup.py build_ext --inplace && python3 setup
 
 # add user
 RUN useradd -ms /bin/bash user
+
+# add user to sudoers
+RUN chmod u+w /etc/sudoers
+RUN echo 'user\tALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN chmod u-w /etc/sudoers
+
 USER user
 WORKDIR /home/user
 
