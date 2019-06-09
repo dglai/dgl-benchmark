@@ -20,7 +20,7 @@ unknown_option() {
 #
 ########################################
 
-hsize=16
+hsize=8
 epochs=200
 
 #########################################
@@ -41,25 +41,25 @@ echo "Real datasets"
 echo "Time to train 200 epochs with hidden size ${hsize}:"
 
 echo "Cora:"
-time_elapsed=`python3 gcn.py --dataset cora        \
-                             --n-hidden ${hsize}   \
-                             --n-epochs ${epochs}  \
-                             --gpu 0               \
-                             2>/dev/null | tail -n 1`
+time_elapsed=`python3 train.py --dataset cora        \
+                               --num-hidden ${hsize} \
+                               --epochs ${epochs}    \
+                               --gpu 0               \
+                               2>/dev/null | tail -n 1`
 echo "${time_elapsed} seconds"
 echo "CiteSeer:"
-time_elapsed=`python3 gcn.py --dataset citeseer    \
-                             --n-hidden ${hsize}   \
-                             --n-epochs ${epochs}  \
-                             --gpu 0               \
-                             2>/dev/null | tail -n 1`
+time_elapsed=`python3 train.py --dataset citeseer    \
+                               --num-hidden ${hsize} \
+                               --epochs ${epochs}    \
+                               --gpu 0               \
+                               2>/dev/null | tail -n 1`
 echo "${time_elapsed} seconds"
 echo "PubMed:"
-time_elapsed=`python3 gcn.py --dataset pubmed      \
-                             --n-hidden ${hsize}   \
-                             --n-epochs ${epochs}  \
-                             --gpu 0               \
-                             2>/dev/null | tail -n 1`
+time_elapsed=`python3 train.py --dataset pubmed      \
+                               --num-hidden ${hsize} \
+                               --epochs ${epochs}    \
+                               --gpu 0               \
+                               2>/dev/null | tail -n 1`
 echo "${time_elapsed} seconds"
 echo
 
@@ -69,15 +69,15 @@ echo "Erdos-Reyi Synthetic graph"
 # different workload
 nodes=32000
 p=0.0008
-hsize=16
+hsize=8
 echo "Number of nodes: ${nodes}"
 echo "Density: ${p}"
 echo "Hidden size: ${hsize}"
-time_elapsed=`python3 gcn.py --dataset syn         \
-                             --n-hidden ${hsize}   \
-                             --n-epochs ${epochs}  \
-                             --syn-gnp-n ${nodes}  \
-                             --syn-gnp-p ${p}      \
-                             --gpu 0               \
-                             2>/dev/null | tail -n 1`
+time_elapsed=`python3 train.py --dataset syn         \
+                               --num-hidden ${hsize} \
+                               --epochs ${epochs}    \
+                               --syn-gnp-n ${nodes}  \
+                               --syn-gnp-p ${p}      \
+                               --gpu 0               \
+                               2>/dev/null | tail -n 1`
 echo "${time_elapsed} seconds"
