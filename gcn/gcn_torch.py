@@ -106,9 +106,9 @@ def main(args):
         data = load_data(args)
     features = torch.FloatTensor(data.features)
     labels = torch.LongTensor(data.labels)
-    train_mask = torch.ByteTensor(data.train_mask)
-    val_mask = torch.ByteTensor(data.val_mask)
-    test_mask = torch.ByteTensor(data.test_mask)
+    train_mask = torch.ByteTensor(data.train_mask.astype(np.uint8))
+    val_mask = torch.ByteTensor(data.val_mask.astype(np.uint8))
+    test_mask = torch.ByteTensor(data.test_mask.astype(np.uint8))
     in_feats = features.shape[1]
     n_classes = data.num_labels
     n_edges = data.graph.number_of_edges()
@@ -137,8 +137,9 @@ def main(args):
     # graph preprocess and calculate normalization factor
     g = DGLGraph(data.graph)
     n_edges = g.number_of_edges()
-    # add self loop
-    g.add_edges(g.nodes(), g.nodes())
+    if not args.dataset.startswith("reddit"):
+        # add self loop for non-reddit dataset
+        g.add_edges(g.nodes(), g.nodes())
     # normalization
     degs = g.in_degrees().float()
     norm = torch.pow(degs, -0.5)
@@ -178,8 +179,11 @@ def main(args):
         loss = loss.item()
         if epoch == 0:
             # Skip first epoch for warm up
-            torch.cuda.synchronize()
+            if cuda:
+                torch.cuda.synchronize()
             start = time.time()
+    if cuda:
+        torch.cuda.synchronize()
     end = time.time()
 
     print(evaluate(model, features, labels, test_mask))
@@ -203,11 +207,10 @@ if __name__ == '__main__':
             help="number of hidden gcn layers")
     parser.add_argument("--weight-decay", type=float, default=5e-4,
             help="Weight for L2 loss")
-    parser.add_argument("--n-nodes", type=int, default=10000,
-            help="Number of nodes for synthetic power law graph")
-    parser.add_argument("--degree", type=int, default=10,
-            help="Out degree for synthetic power law graph")
     args = parser.parse_args()
+    if args.dataset.startswith("reddit"):
+        # use reddit dataset that already added self-loop
+        args.dataset = "reddit-self-loop"
     print(args)
 
     main(args)
