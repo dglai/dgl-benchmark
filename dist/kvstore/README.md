@@ -1,6 +1,8 @@
-1. change `ip_config.txt` to your instance IP.
+1. Go to `pytorch` or `mxnet` folder and change `ip_config.txt` to your instance IP.
 
-2. Start server:
+2. `rm *-shape` remove temp file
+
+3. Start server:
 
 In instance_0:
 
@@ -10,7 +12,7 @@ In instance_1:
 
 `DGLBACKEND=pytorch python3 server.py --num_client 2 --server_id 1 &`
 
-3. Start client:
+4. Start client:
 
 In instance_0:
 

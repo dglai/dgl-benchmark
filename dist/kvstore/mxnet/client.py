@@ -43,12 +43,15 @@ def start_client(args):
         my_client.pull(name='entity_embed', id_tensor=mx.nd.array([0,1,2], dtype='int64'))
     print("Total time: %.3f" % (time.time() - start))
 
+    my_client.barrier()
 
     print("Pull from remote...")
     start = time.time()
     for i in range(100):
         my_client.pull(name='entity_embed', id_tensor=mx.nd.array([3,4,5], dtype='int64'))
     print("Total time: %.3f" % (time.time() - start))
+
+    my_client.barrier()
 
     if my_client.get_id() == 0:
         my_client.shut_down()
