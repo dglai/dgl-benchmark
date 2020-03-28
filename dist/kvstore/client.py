@@ -43,22 +43,33 @@ def start_client(args):
 
     my_client.barrier()
 
-    print("Pull from local...")
     local_start = num_entries * my_client.get_machine_id()
     local_end = num_entries * (my_client.get_machine_id() + 1)
     local_range = np.arange(local_start, local_end)
-    num_bytes = 0
     id_list = []
     for i in range(10000):
         ids = np.random.choice(local_range, args.batch_size)
         id_list.append(F.tensor(ids))
+
+    print("Pull from local...")
+    num_bytes = 0
     start = time.time()
     for ids in id_list:
         tmp = my_client.pull(name='entity_embed', id_tensor=ids)
+        ndim = tmp.shape[1]
         num_bytes += np.prod(tmp.shape) * 4
     print("Total time: %.3f, #bytes: %.3f GB" % (time.time() - start, num_bytes / 1000 / 1000 / 1000))
 
     my_client.barrier()
+
+    arr = F.zeros((num_entries, ndim), F.float32, F.cpu())
+    print('Slice from a tensor...')
+    num_bytes = 0
+    start = time.time()
+    for ids in id_list:
+        tmp = arr[ids]
+        num_bytes += np.prod(tmp.shape) * 4
+    print("Total time: %.3f, #bytes: %.3f GB" % (time.time() - start, num_bytes / 1000 / 1000 / 1000))
 
     print("Pull from remote...")
     if local_start == 0:
