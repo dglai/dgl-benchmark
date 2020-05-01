@@ -1,6 +1,7 @@
 import os
 import argparse
 import time
+import numpy as np
 
 import dgl
 from dgl.contrib import KVServer
@@ -37,12 +38,17 @@ def start_server(args):
     end = num_entries * (my_server.get_machine_id() + 1)
     g2l[start:end] = F.arange(0, num_entries)
 
+    partition = np.arange(args.num_servers)
+    partition = F.tensor(np.repeat(partition, num_entries))
     if my_server.get_id() % my_server.get_group_count() == 0: # master server
         my_server.set_global2local(name='entity_embed', global2local=g2l)
         my_server.init_data(name='entity_embed', data_tensor=data)
+        my_server.set_partition_book(name='entity_embed', partition_book=partition)
     else:
         my_server.set_global2local(name='entity_embed')
         my_server.init_data(name='entity_embed')
+        my_server.set_partition_book(name='entity_embed')
+
 
     my_server.print()
 

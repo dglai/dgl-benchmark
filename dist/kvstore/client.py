@@ -31,14 +31,6 @@ def start_client(args):
 
     my_client.connect()
 
-    partition = np.arange(args.num_servers)
-    partition = F.tensor(np.repeat(partition, num_entries))
-
-    if my_client.get_id() % args.num_worker == 0:
-        my_client.set_partition_book(name='entity_embed', partition_book=partition)
-    else:
-        my_client.set_partition_book(name='entity_embed')
-
     my_client.print()
 
     my_client.barrier()
