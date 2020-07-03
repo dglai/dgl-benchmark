@@ -40,58 +40,85 @@ Benchmark result:
 
 1 client & 1 server
 
+10k * 10
+
+Local fast-pull Throughput (MB): 649.258425
+Remote fast-pull Throughput (MB): 173.023789
+Local pull Throughput (MB): 291.773802
+Remote pull Throughput (MB): 162.708141
+Local push Throughput (MB): 442.425876
+Remote push Throughput (MB): 479.007257
+
 100k * 10
 
-Local fast-pull Throughput (MB): 1309.554908
-Remote fast-pull Throughput (MB): 555.820761
-Local pull Throughput (MB): 569.412073
-Remote pull Throughput (MB): 334.965301
-Local push Throughput (MB): 1102.261761
-Remote push Throughput (MB): 804.207345
+Local fast-pull Throughput (MB): 1314.218752
+Remote fast-pull Throughput (MB): 574.816740
+Local pull Throughput (MB): 552.659689
+Remote pull Throughput (MB): 286.657311
+Local push Throughput (MB): 1045.716321
+Remote push Throughput (MB): 907.782533
 
 100k * 200
 
-Local fast-pull Throughput (MB): 6817.679390
-Remote fast-pull Throughput (MB): 589.524837
-Local pull Throughput (MB): 2643.266993
-Remote pull Throughput (MB): 698.920039
-Local push Throughput (MB): 4831.602507
-Remote push Throughput (MB): 877.408615
+Local fast-pull Throughput (MB): 6666.765678
+Remote fast-pull Throughput (MB): 581.152885
+Local pull Throughput (MB): 2375.640861
+Remote pull Throughput (MB): 689.765973
+Local push Throughput (MB): 4990.976247
+Remote push Throughput (MB): 1039.765263
+
 
 ———————————
 
 4 client & 4 server
 
+10k * 10
+
+Local fast-pull Throughput (MB): 2751.869516
+Local pull Throughput (MB): 1314.717302
+Remote pull Throughput (MB): 625.735320
+Local push Throughput (MB): 1918.196895
+Remote push Throughput (MB): 1637.778081
+
 100k * 10
 
-Local fast-pull Throughput (MB): 5271.720105
-Remote fast-pull Throughput (MB): 1664.377786
-Local pull Throughput (MB): 1846.861070
-Remote pull Throughput (MB): 1131.571235
-Local push Throughput (MB): 2737.799059
-Remote push Throughput (MB): 2962.085308
+Local fast-pull Throughput (MB): 4519.840511
+Remote fast-pull Throughput (MB): 1407.205000
+Local pull Throughput (MB): 1404.302542
+Remote pull Throughput (MB): 987.953401
+Local push Throughput (MB): 2445.326418
+Remote push Throughput (MB): 2779.199142
 
 100k * 200
 
-Local fast-pull Throughput (MB): 15671.273699
-Remote fast-pull Throughput (MB): 1967.417778
-Local pull Throughput (MB): 6180.696644
-Remote pull Throughput (MB): 2234.634593
-Local push Throughput (MB): 10667.588198
-Remote push Throughput (MB): 3791.462856
+Local fast-pull Throughput (MB): 12242.980742
+Remote fast-pull Throughput (MB): 1815.319213
+Local pull Throughput (MB): 4707.276956
+Remote pull Throughput (MB): 1902.349101
+Local push Throughput (MB): 9012.186808
+Remote push Throughput (MB): 3421.485186
 
 —————————————
 
 20 client & 20 server
 
+10k * 10
+
+Local fast-pull Throughput (MB): 7244.667906
+Remote fast-pull Throughput (MB): 1039.229844
+Local pull Throughput (MB): 3239.166927
+Remote pull Throughput (MB): 1307.803466
+Local push Throughput (MB): 4157.319914
+Remote push Throughput (MB): 2852.975899
+
 100k * 10
 
-Local fast-pull Throughput (MB): 11294.207336
-Remote fast-pull Throughput (MB): 3369.501658
-Local pull Throughput (MB): 3810.804663
-Remote pull Throughput (MB): 2617.981305
-Local push Throughput (MB): 4425.655896
-Remote push Throughput (MB): 4405.089255
+Local fast-pull Throughput (MB): 5839.269544
+Remote fast-pull Throughput (MB): 1654.370116
+Local pull Throughput (MB): 2224.554786
+Remote pull Throughput (MB): 1500.352231
+Local push Throughput (MB): 2679.853032
+Remote push Throughput (MB): 2811.585548
 
 100k * 200
 
