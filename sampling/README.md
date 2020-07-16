@@ -45,5 +45,6 @@ Pytorch distributed requires one of the trainer process to be the master. Here w
 
 ```bash
 # run client on machine 0
+export OMP_NUM_THREADS=1
 python3 mp_dataloader.py --conf_file data/ogb-product.json --ip_config ip_config.txt --batch-size 1000 --num-workers 1
 ```
